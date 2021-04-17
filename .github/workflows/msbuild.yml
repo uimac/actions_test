@@ -32,9 +32,9 @@ jobs:
     # https://stackoverflow.com/questions/61037714/how-to-install-an-old-version-of-the-direct-x-api-in-github-actions
     - name:  Add DXSDK_DIR to ENV
       run: |
-        echo %HOME%
-        echo DXSDK_DIR=%HOME%/cache/ >> %GITHUB_ENV%
-      shell: cmd
+        winhome=`cygpath -w $HOME`
+        echo DXSDK_DIR=$winhome\cache\ >> $GITHUB_ENV
+      shell: bash
       
     - name: DXSDK from cache
       id:   cache
