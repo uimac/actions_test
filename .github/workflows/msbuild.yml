@@ -47,7 +47,7 @@ jobs:
          rm -fR _DX*_ _DX*_.exe
       shell: bash
       
-    - uses: actions/cache@v1
+    - uses: actions/cache@v2
       id: vcpkgcache
       with:
        path: C:/vcpkg/installed
