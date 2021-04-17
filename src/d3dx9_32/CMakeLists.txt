@@ -1,5 +1,7 @@
 INCLUDE_DIRECTORIES(
     $ENV{DXSDK_DIR}/include
+    $(VC_IncludePath)
+    $(WindowsSDK_IncludePath)
     )
 ADD_DEFINITIONS(
     -DNOMINMAX
