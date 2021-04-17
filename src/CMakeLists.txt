@@ -1,4 +1,4 @@
-add_definitions(-I$(WindowsSDK_IncludePath))
+add_compile_options(-I$(WindowsSDK_IncludePath))
 
 ADD_SUBDIRECTORY(MikuMikuFormats)
 ADD_SUBDIRECTORY(d3dx9_32)
