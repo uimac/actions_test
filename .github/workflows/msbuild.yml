@@ -41,6 +41,13 @@ jobs:
         path: ~/cache
         key:  cache
         
+    - name: show files
+      run: |
+        ls ${{DXSDK_DIR}}
+        ls ${{DXSDK_DIR}}/include
+        echo "---"
+        ls "C:/Users/runneradmin/cache/"
+    
     - name: DXSDK cache create
       if:    steps.cache.outputs.cache-hit != 'true'
       run:   |
