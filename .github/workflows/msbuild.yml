@@ -42,12 +42,7 @@ jobs:
       with:
         path: ~/cache
         key:  cache
-        
-    - name: show files
-      run: |
-        ls $HOME/cache
-      shell: bash
-    
+
     - name: DXSDK cache create
       if:    steps.cache.outputs.cache-hit != 'true'
       run:   |
