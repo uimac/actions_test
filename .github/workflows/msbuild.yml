@@ -56,8 +56,14 @@ jobs:
       with:
        path: |
          C:/vcpkg/installed
-         C:/vcpkg/share/python3/Lib
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
+
+    - name: show files
+      run: |
+        ls C:/vcpkg/installed/x64-windows/
+        echo "----"
+        ls C:/vcpkg/installed/x64-windows/share/
+      shell: bash
 
     - name: Update vcpkg and install packages
       if: steps.vcpkgcache.outputs.cache-hit != 'true'
@@ -69,11 +75,6 @@ jobs:
 
     - name: vcpkg integration
       run: vcpkg integrate install
-
-    - name: show files
-      run: |
-        ls C:/vcpkg/share/
-      shell: bash
 
     - name: Checkout MMDBridge
       uses: actions/checkout@v2
