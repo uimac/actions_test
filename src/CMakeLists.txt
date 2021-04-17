@@ -12,6 +12,9 @@ FILE(GLOB d3d9_sources
     umbase/*.cpp
     umbase/*.h
     )
+
+add_compile_options("/I%(WindowsSDK_IncludePath)")
+
 INCLUDE_DIRECTORIES(
     umbase
     MikuMikuFormats
