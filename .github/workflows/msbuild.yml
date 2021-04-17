@@ -11,14 +11,19 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
   BULID_PLATFORM: x64
+ 
+  VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
 
 jobs:
-  install_dx12:
+  install deps:
     runs-on: windows-2016
 
     steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1
+      
+    - name: Check MSBuild.exe
+      run: MSBuild.exe -version | Out-File -FilePath $env:GITHUB_WORKSPACE\MSBuild_version
       
     # https://stackoverflow.com/questions/61037714/how-to-install-an-old-version-of-the-direct-x-api-in-github-actions
     - name:  Add DXSDK_DIR to ENV
@@ -42,23 +47,21 @@ jobs:
          rm -fR _DX*_ _DX*_.exe
       shell: bash
       
-    # https://github.com/microsoft/vcpkg/blob/master/docs/users/binarycaching.md
-    - name: Remove old vcpkg
-      run: rm -rf "$VCPKG_INSTALLATION_ROOT"
-      shell: bash
-
-    - name: Restore from cache and install vcpkg
-      # Download and build vcpkg, without installing any port. If content is cached already, it is a no-op.
-      uses: lukka/run-vcpkg@v7
+    - uses: actions/cache@v1
+      id: vcpkgcache
       with:
-        setupOnly: true
+       path: C:/vcpkg/installed
+       key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
 
-    - name: vcpkg
+    - name: Update vcpkg and install packages
+      if: steps.vcpkgcache.outputs.cache-hit != 'true'
       run: |
-        $VCPKG_ROOT/vcpkg integrate install
-        $VCPKG_ROOT/vcpkg install pybind11:x64-windows
-      shell: bash
-      
+        # cd $env:VCPKG_INSTALLATION_ROOT
+        # git pull origin master
+        # .\bootstrap-vcpkg.bat
+        vcpkg install pybind11:x64-windows
+        vcpkg integrate install
+
     - name: Checkout MMDBridge
       uses: actions/checkout@v2
     
