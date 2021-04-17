@@ -1,0 +1,57 @@
+name: MSBuild
+
+on: [push]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ./build_vs2017_64/mmdbridge.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+  BULID_PLATFORM: x64
+
+jobs:
+  build:
+    runs-on: windows-2016
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1
+      
+    # https://stackoverflow.com/questions/61037714/how-to-install-an-old-version-of-the-direct-x-api-in-github-actions
+    - name:  Config
+      run:   echo ::set-env name=DXSDK_DIR::$HOME/cache/
+      shell: bash
+      
+    - name: Cache
+      id:   cache
+      uses: actions/cache@v2
+      with:
+        path: ~/cache
+        key:  cache
+        
+    - name:  Cache create
+      if:    steps.cache.outputs.cache-hit != 'true'
+      run:   |
+         curl -L https://download.microsoft.com/download/a/e/7/ae743f1f-632b-4809-87a9-aa1bb3458e31/DXSDK_Jun10.exe -o _DX2010_.exe
+         7z x _DX2010_.exe DXSDK/Include -o_DX2010_
+         7z x _DX2010_.exe DXSDK/Lib/x64 -o_DX2010_
+         mv _DX2010_/DXSDK $HOME/cache
+         rm -fR _DX*_ _DX*_.exe
+      shell: bash
+      
+    - name: vcpkg
+      run: vcpkg install alembic:x64-windows pybind11:x64-windows
+        
+    - name: cmake
+      run: cmake_vs2017_64.bat
+        
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} Platform=${{env.BULID_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
