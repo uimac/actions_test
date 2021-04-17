@@ -15,9 +15,9 @@ env:
   VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
 
 jobs:
-  install deps:
+  install_libs:
     runs-on: windows-2016
-
+    
     steps:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1
