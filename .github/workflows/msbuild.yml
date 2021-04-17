@@ -48,7 +48,8 @@ jobs:
       run: vcpkg install alembic:x64-windows pybind11:x64-windows
         
     - name: cmake
-      run: cmake_vs2017_64.bat
+      shell: cmd
+      run: .\cmake_vs2017_64.bat
         
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
