@@ -43,8 +43,8 @@ jobs:
         
     - name: show files
       run: |
-        ls ${{DXSDK_DIR}}
-        ls ${{DXSDK_DIR}}/include
+        ls ${{env.DXSDK_DIR}}
+        ls ${{env.DXSDK_DIR}}/include
         echo "---"
         ls "C:/Users/runneradmin/cache/"
     
