@@ -13,7 +13,6 @@ env:
   BULID_PLATFORM: x64
  
   VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
-  VCPKG_DIR: "$env:VCPKG_INSTALLATION_ROOT"
   
 jobs:
   install_libs:
@@ -25,6 +24,10 @@ jobs:
       
     - name: Check MSBuild.exe
       run: MSBuild.exe -version | Out-File -FilePath $env:GITHUB_WORKSPACE\MSBuild_version
+      
+    - name: Add VCPKG_DIR to ENV
+      run : echo "VCPKG_DIR=$VCPKG_INSTALLATION_ROOT" >> $GITHUB_ENV
+      shell: bash
       
     # https://stackoverflow.com/questions/61037714/how-to-install-an-old-version-of-the-direct-x-api-in-github-actions
     - name:  Add DXSDK_DIR to ENV
