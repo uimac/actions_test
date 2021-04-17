@@ -71,10 +71,10 @@ jobs:
        path: C:/vcpkg/share/python3/Lib
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}-python
 
-    - name: install python3
-      if: steps.vcpkgcache_python.outputs.cache-hit != 'true'
-      run: |
+    - name: remove python3
         vcpkg remove python3:x64-windows
+        
+    - name: install python3
         vcpkg install python3:x64-windows
       
     - name: vcpkg integration
