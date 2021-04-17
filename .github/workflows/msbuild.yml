@@ -60,7 +60,9 @@ jobs:
 
     - name: show files
       run: |
-        ls C:/vcpkg/installed/x64-windows/share/python/
+        ls C:/vcpkg/installed/x64-windows/tools/python3/
+        echo "----"
+        ls C:/vcpkg/installed/x64-windows/tools/python3/Lib
       shell: bash
 
     - name: Update vcpkg and install packages
