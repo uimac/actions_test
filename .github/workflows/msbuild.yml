@@ -45,5 +45,5 @@ jobs:
       shell: bash
 
     - name: vcpkg
-      run: vcpkg install alembic:x64-windows pybind11:x64-windows
+      run: vcpkg install pybind11:x64-windows
         
