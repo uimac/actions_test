@@ -44,3 +44,6 @@ jobs:
          rm -fR _DX*_ _DX*_.exe
       shell: bash
 
+    - name: vcpkg
+      run: vcpkg install alembic:x64-windows pybind11:x64-windows
+        
