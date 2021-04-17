@@ -62,7 +62,7 @@ jobs:
       run: |
         ls C:/vcpkg/installed/x64-windows/
         echo "----"
-        ls C:/vcpkg/installed/x64-windows/share/
+        ls C:/vcpkg/installed/x64-windows/share/python3/
       shell: bash
 
     - name: Update vcpkg and install packages
