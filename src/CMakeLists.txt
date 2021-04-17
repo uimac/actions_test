@@ -1,3 +1,5 @@
+add_definitions(-I$(WindowsSDK_IncludePath))
+
 ADD_SUBDIRECTORY(MikuMikuFormats)
 ADD_SUBDIRECTORY(d3dx9_32)
 
@@ -12,8 +14,6 @@ FILE(GLOB d3d9_sources
     umbase/*.cpp
     umbase/*.h
     )
-
-add_definitions(-I$(WindowsSDK_IncludePath))
 
 INCLUDE_DIRECTORIES(
     umbase
