@@ -14,10 +14,10 @@ FILE(GLOB d3d9_sources
     )
 INCLUDE_DIRECTORIES(
     umbase
-    d3dx9_32
     MikuMikuFormats
     ${MMD_DIR}/Data
     $ENV{DXSDK_DIR}/include
+    d3dx9_32
     ${ilmbase_INCLUDE_DIRS}
     ${Alembic_INCLUDE_DIRS}
     ${pybind11_INCLUDE_DIRS}
