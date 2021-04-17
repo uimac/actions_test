@@ -43,10 +43,8 @@ jobs:
         
     - name: show files
       run: |
-        ls ${{env.DXSDK_DIR}}
-        ls ${{env.DXSDK_DIR}}/include
-        echo "---"
-        ls "C:/Users/runneradmin/cache/"
+        ls $HOME/cache
+      shell: bash
     
     - name: DXSDK cache create
       if:    steps.cache.outputs.cache-hit != 'true'
