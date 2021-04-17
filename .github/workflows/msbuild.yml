@@ -72,10 +72,10 @@ jobs:
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}-python
 
     - name: remove python3
-        vcpkg remove python3:x64-windows
+      run: vcpkg remove python3:x64-windows
         
     - name: install python3
-        vcpkg install python3:x64-windows
+      run: vcpkg install python3:x64-windows
       
     - name: vcpkg integration
       run: vcpkg integrate install
