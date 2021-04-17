@@ -13,7 +13,7 @@ FILE(GLOB d3d9_sources
     umbase/*.h
     )
 
-add_compile_options("/I%(WindowsSDK_IncludePath)")
+add_definitions(-I$(WindowsSDK_IncludePath))
 
 INCLUDE_DIRECTORIES(
     umbase
