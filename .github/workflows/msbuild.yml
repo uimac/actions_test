@@ -61,11 +61,13 @@ jobs:
         # .\bootstrap-vcpkg.bat
         vcpkg install alembic:x64-windows pybind11:x64-windows
     
-    #- name: vcpkg integration
-    #    vcpkg integrate install
+    - name: vcpkg integration
+        vcpkg integrate install
 
-    #- name: Checkout MMDBridge
-    #  uses: actions/checkout@v2
-    
-  
-        
+    - name: Checkout MMDBridge
+      uses: actions/checkout@v2
+
+    - name: cmake
+      shell: cmd
+      run: .\cmake_vs2017_64.bat
+
