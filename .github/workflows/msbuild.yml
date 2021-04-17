@@ -33,7 +33,7 @@ jobs:
     - name:  Add DXSDK_DIR to ENV
       run: |
         winhome=`cygpath -w $HOME`
-        echo "DXSDK_DIR=$winhome\cache\" >> $GITHUB_ENV
+        echo DXSDK_DIR=$winhome/cache/ >> $GITHUB_ENV
       shell: bash
       
     - name: DXSDK from cache
