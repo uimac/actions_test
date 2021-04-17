@@ -57,21 +57,21 @@ jobs:
        path: C:/vcpkg/installed
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
 
-    - name: show files
-      run: |
-        ls C:/vcpkg/installed/x64-windows/lib/
-      shell: bash
-
     - name: Update vcpkg and install packages
       if: steps.vcpkgcache.outputs.cache-hit != 'true'
       run: |
         # cd $env:VCPKG_INSTALLATION_ROOT
         # git pull origin master
         # .\bootstrap-vcpkg.bat
-        vcpkg install alembic:x64-windows pybind11:x64-windows
+        vcpkg install alembic:x64-windows pybind11:x64-windows python3:x64-windows-static
     
     - name: vcpkg integration
       run: vcpkg integrate install
+
+    - name: show files
+      run: |
+        ls C:/vcpkg/installed/x64-windows/lib/
+      shell: bash
 
     - name: Checkout MMDBridge
       uses: actions/checkout@v2
