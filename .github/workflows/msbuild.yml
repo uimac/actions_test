@@ -57,6 +57,13 @@ jobs:
        path: C:/vcpkg/installed
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
 
+    - name: show files
+      run: |
+        ls C:/vcpkg/
+        ls C:/vcpkg/installed/
+        ls .
+      shell: bash
+
     - name: Update vcpkg and install packages
       if: steps.vcpkgcache.outputs.cache-hit != 'true'
       run: |
