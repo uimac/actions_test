@@ -60,10 +60,15 @@ jobs:
       
     - name: DXSDK comment out some codes
       run: |
+        sed -i -n -e "347 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
+        sed -i -n -e "348 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
         sed -i -n -e "349 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
         sed -i -n -e "350 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -i -n -e "351 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
         sed -i -n -e "352 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
-        sed -i -e "353 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -i -n -e "353 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -i -n -e "354 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
+        sed -i -n -e "355 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
       shell: bash
     
     - uses: actions/cache@v2
