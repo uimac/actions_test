@@ -41,13 +41,17 @@ jobs:
          mv _DX2010_/DXSDK $HOME/cache
          rm -fR _DX*_ _DX*_.exe
       shell: bash
+      
+    # https://github.com/microsoft/vcpkg/blob/master/docs/users/binarycaching.md
+    - name: Remove old vcpkg
+      run: rm -rf "$VCPKG_INSTALLATION_ROOT"
+      shell: bash
 
     - name: Restore from cache and install vcpkg
       # Download and build vcpkg, without installing any port. If content is cached already, it is a no-op.
-      uses: lukka/run-vcpkg@v6
+      uses: lukka/run-vcpkg@v7
       with:
         setupOnly: true
-        vcpkgCommitId: fe112d8301e13fde9a25dc92d94a0c4a6dc3cf19
 
     - name: vcpkg
       run: |
