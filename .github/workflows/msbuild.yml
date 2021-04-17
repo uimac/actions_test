@@ -24,7 +24,7 @@ jobs:
       
     # https://stackoverflow.com/questions/61037714/how-to-install-an-old-version-of-the-direct-x-api-in-github-actions
     - name:  Config
-      run:   echo ::set-env name=DXSDK_DIR::$HOME/cache/
+      run:   echo "DXSDK_DIR=$HOME/cache/" >> $GITHUB_ENV
       shell: bash
       
     - name: Cache
