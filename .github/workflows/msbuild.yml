@@ -54,7 +54,9 @@ jobs:
     - uses: actions/cache@v2
       id: vcpkgcache
       with:
-       path: C:/vcpkg/installed
+       path: |
+         C:/vcpkg/installed
+         C:/vcpkg/share/python3/Lib
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
 
     - name: Update vcpkg and install packages
@@ -64,19 +66,7 @@ jobs:
         # git pull origin master
         # .\bootstrap-vcpkg.bat
         vcpkg install alembic:x64-windows pybind11:x64-windows
-    
-    - uses: actions/cache@v2
-      id: vcpkgcache_python
-      with:
-       path: C:/vcpkg/share/python3/Lib
-       key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}-python
 
-    - name: remove python3
-      run: vcpkg remove python3:x64-windows
-        
-    - name: install python3
-      run: vcpkg install python3:x64-windows
-      
     - name: vcpkg integration
       run: vcpkg integrate install
 
