@@ -15,7 +15,7 @@ env:
   VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
   
 jobs:
-  install_libs:
+  build:
     runs-on: windows-2016
     
     steps:
@@ -58,13 +58,6 @@ jobs:
          C:/vcpkg/installed
        key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
 
-    - name: show files
-      run: |
-        ls C:/vcpkg/installed/x64-windows/tools/python3/
-        echo "----"
-        ls C:/vcpkg/installed/x64-windows/tools/python3/Lib
-      shell: bash
-
     - name: Update vcpkg and install packages
       if: steps.vcpkgcache.outputs.cache-hit != 'true'
       run: |
@@ -83,3 +76,8 @@ jobs:
       shell: cmd
       run: .\cmake_vs2017_64.bat
 
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} Platform=${{env.BULID_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
