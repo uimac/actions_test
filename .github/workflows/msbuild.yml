@@ -58,6 +58,14 @@ jobs:
          rm -fR _DX*_ _DX*_.exe
       shell: bash
       
+    - name: DXSDK comment out some codes
+      run: |
+        sed -e "349 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -e "350 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -e "352 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+        sed -e "353 s/HRESULT/\/\/HRESULT/g" $HOME/cache/include/d3dx9core.h
+      shell: bash
+    
     - uses: actions/cache@v2
       id: vcpkgcache
       with:
