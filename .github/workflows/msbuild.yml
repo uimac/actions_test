@@ -43,7 +43,15 @@ jobs:
          mv _DX2010_/DXSDK $HOME/cache
          rm -fR _DX*_ _DX*_.exe
       shell: bash
+      
+    - name: Restore from cache and install vcpkg
+      # Download and build vcpkg, without installing any port. If content is cached already, it is a no-op.
+      uses: lukka/run-vcpkg@v6
+      with:
+        setupOnly: true
 
     - name: vcpkg
-      run: vcpkg install pybind11:x64-windows
+      run: $VCPKG_ROOT/vcpkg install pybind11:x64-windows
+      shell: bash
+  
         
