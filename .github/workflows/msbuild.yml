@@ -59,11 +59,13 @@ jobs:
         # cd $env:VCPKG_INSTALLATION_ROOT
         # git pull origin master
         # .\bootstrap-vcpkg.bat
-        vcpkg install pybind11:x64-windows
-        vcpkg integrate install
+        vcpkg install alembic:x64-windows pybind11:x64-windows
+    
+    #- name: vcpkg integration
+    #    vcpkg integrate install
 
-    - name: Checkout MMDBridge
-      uses: actions/checkout@v2
+    #- name: Checkout MMDBridge
+    #  uses: actions/checkout@v2
     
   
         
