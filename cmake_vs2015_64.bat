@@ -7,5 +7,5 @@ set BUILD_DIR="build_vs2015_64"
 
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 pushd %BUILD_DIR%
-%CMAKE% -D CMAKE_INSTALL_PREFIX=%VCPKG_DIR%/installed/x64-windows -G "Visual Studio 14 2015 Win64" -T v140_xp .. 
+%CMAKE% -D CMAKE_INSTALL_PREFIX=%VCPKG_DIR%/installed/x64-windows -G "Visual Studio 14 2015 Win64" -DCMAKE_SYSTEM_VERSION=8.1 .. 
 popd
