@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: ./build_vs2017_64/mmdbridge.sln
+  SOLUTION_FILE_PATH: ./build_vs2015_64/mmdbridge.sln
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
@@ -16,7 +16,7 @@ env:
   
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2016
     
     steps:
     - name: Add MSBuild to PATH
@@ -97,7 +97,7 @@ jobs:
 
     - name: cmake
       shell: cmd
-      run: .\cmake_vs2017_64.bat
+      run: .\cmake_vs2015_64.bat
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
