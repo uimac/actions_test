@@ -7,5 +7,5 @@ set BUILD_DIR="build_vs2017_64"
 
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 pushd %BUILD_DIR%
-%CMAKE% -D CMAKE_INSTALL_PREFIX=%VCPKG_DIR%/installed/x64-windows -G "Visual Studio 16 2019" -A x64 .. 
+%CMAKE% -D CMAKE_INSTALL_PREFIX=%VCPKG_DIR%/installed/x64-windows -G "Visual Studio 16 2019" -A x64 -T v140_xp .. 
 popd
