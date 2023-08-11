@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: ./build_vs2015_64/mmdbridge.sln
+  SOLUTION_FILE_PATH: ./build_vs2022_64/mmdbridge.sln
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
@@ -16,7 +16,7 @@ env:
   
 jobs:
   build:
-    runs-on: windows-2016
+    runs-on: windows-2022
     
     steps:
     - name: Add MSBuild to PATH
@@ -79,7 +79,7 @@ jobs:
         # cd $env:VCPKG_INSTALLATION_ROOT
         # git pull origin master
         # .\bootstrap-vcpkg.bat
-        vcpkg install alembic:x64-windows pybind11:x64-windows
+        vcpkg install python3:x64-windows-release alembic[hdf5]:x64-windows-release pybind11:x64-windows-release
         
     - name: Download and install Windows SDK
       run: |
@@ -98,7 +98,7 @@ jobs:
 
     - name: cmake
       shell: cmd
-      run: .\cmake_vs2015_64.bat
+      run: .\cmake_vs2022_64.bat
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
