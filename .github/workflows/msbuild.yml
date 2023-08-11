@@ -80,15 +80,6 @@ jobs:
         # git pull origin master
         # .\bootstrap-vcpkg.bat
         vcpkg install python3:x64-windows-release alembic[hdf5]:x64-windows-release pybind11:x64-windows-release
-        
-    - name: Download and install Windows SDK
-      run: |
-        import subprocess
-        import urllib.request
-        #urllib.request.urlretrieve("https://go.microsoft.com/fwlink/p/?LinkId=323507", "sdksetup.exe")
-        urllib.request.urlretrieve("https://go.microsoft.com/fwlink/p/?LinkId=226658", "sdksetup.exe")
-        subprocess.run(["sdksetup.exe", "/q", "/norestart", "/features", "OptionId.WindowsDesktopSoftwareDevelopmentKit"], check=True, capture_output=True)
-      shell: python
       
     - name: vcpkg integration
       run: vcpkg integrate install
