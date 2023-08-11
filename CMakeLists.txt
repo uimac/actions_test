@@ -1,8 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(mmdbridge) # .sln
 
-#message(STATUS "Setting Extensions to version ${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
-#set_property(TARGET ${EXE_NAME} PROPERTY VS_DESKTOP_EXTENSIONS_VERSION "${CMAKE_VS_WINDOWS_TARGET_PLATFORM_VERSION}")
+# for UTF8 source codes
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
 # shared compiler options
 SET(CMAKE_CXX_FLAGS "/EHsc /wd4267"
@@ -15,9 +16,9 @@ SET(CMAKE_CXX_FLAGS_DEBUG
 # path settings
 #FIND_PACKAGE(PythonLibs REQUIRED)
 SET(PYTHON_INCLUDE_DIRS
-    ${CMAKE_INSTALL_PREFIX}/include/python3.9)
+    ${CMAKE_INSTALL_PREFIX}/include/python3.11)
 SET(PYTHON_LIBRARIES
-    ${CMAKE_INSTALL_PREFIX}/lib/python39.lib)
+    ${CMAKE_INSTALL_PREFIX}/lib/python311.lib)
 
 #FIND_PACKAGE(pybind11 REQUIRED)
 SET(pybind11_INCLUDE_DIRS
@@ -30,24 +31,28 @@ GET_FILENAME_COMPONENT(MMD_DIR
     )
 #FIND_PACKAGE(ilmbase REQUIRED)
 SET(ilmbase_INCLUDE_DIRS 
-    ${CMAKE_INSTALL_PREFIX}/include/OpenEXR)
+    ${CMAKE_INSTALL_PREFIX}/include/Imath)
 #FIND_PACKAGE(Alembic REQUIRED)
 SET(ALEMBIC_INCLUDE_DIRS
     ${CMAKE_INSTALL_PREFIX}/include)
 SET(ALEMBIC_LIBRARIES
-    ${CMAKE_INSTALL_PREFIX}/lib/Alembic.lib)
+    ${CMAKE_INSTALL_PREFIX}/lib/Alembic.lib
+    ${CMAKE_INSTALL_PREFIX}/lib/hdf5.lib
+    ${CMAKE_INSTALL_PREFIX}/lib/hdf5_hl.lib
+    ${CMAKE_INSTALL_PREFIX}/lib/Imath-3_1.lib
+    ${CMAKE_INSTALL_PREFIX}/lib/zlib.lib
+    ${CMAKE_INSTALL_PREFIX}/lib/szip.lib)
 
 # projects
 ADD_SUBDIRECTORY(src)
 
 # additional install files
 INSTALL(FILES 
-    ${CMAKE_INSTALL_PREFIX}/bin/python39.dll
+    ${CMAKE_INSTALL_PREFIX}/bin/python311.dll
     ${CMAKE_INSTALL_PREFIX}/bin/Alembic.dll
     ${CMAKE_INSTALL_PREFIX}/bin/hdf5.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/imath*.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/iex*.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/half.dll
+    ${CMAKE_INSTALL_PREFIX}/bin/hdf5_hl.dll
+    ${CMAKE_INSTALL_PREFIX}/bin/imath-3_1.dll
     ${CMAKE_INSTALL_PREFIX}/bin/zlib1.dll
     ${CMAKE_INSTALL_PREFIX}/bin/szip.dll
     DESTINATION ${MMD_DIR}

@@ -1,6 +1,3 @@
-add_compile_options(-I$(VC_IncludePath))
-add_compile_options(-I$(WindowsSDK_IncludePath))
- 
 ADD_SUBDIRECTORY(MikuMikuFormats)
 ADD_SUBDIRECTORY(d3dx9_32)
 
@@ -15,7 +12,6 @@ FILE(GLOB d3d9_sources
     umbase/*.cpp
     umbase/*.h
     )
-
 INCLUDE_DIRECTORIES(
     umbase
     d3dx9_32
@@ -34,8 +30,8 @@ ADD_DEFINITIONS(
     -DNOMINMAX
     -DUNICODE
     -D_UNICODE
-#    -DWITH_VMD
-#    -DWITH_PMX
+    -DWITH_VMD
+    -DWITH_PMX
     -DWITH_ALEMBIC
     )
 ADD_LIBRARY(d3d9 SHARED
@@ -45,7 +41,7 @@ TARGET_LINK_LIBRARIES(d3d9
     ${PYTHON_LIBRARIES}
     Shlwapi
     WinMM
-    d3dx9_43
+    d3dx9_32
     MMDExport
     MikuMikuFormats
     ${ALEMBIC_LIBRARIES}
