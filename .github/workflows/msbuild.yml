@@ -65,22 +65,23 @@ jobs:
         sed -i -e "354 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
         sed -i -e "355 s/#/\/\/#/g" $HOME/cache/include/d3dx9core.h
       shell: bash
-    
-    - uses: actions/cache@v2
-      id: vcpkgcache
+      
+    - uses: actions/github-script@v6
       with:
-       path: |
-         C:/vcpkg/installed
-       key: ${{ runner.os }}-vcpkg-${{ hashFiles('MSBuild_version') }}
+        script: |
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+      
+    - name: Install dependencies via vcpkg
+      run: vcpkg install python3:x64-windows-release --binarysource="clear;x-gha,readwrite"
 
-    - name: Update vcpkg and install packages
-      if: steps.vcpkgcache.outputs.cache-hit != 'true'
+    - name: Update vcpkg and install python
       run: |
-        # cd $env:VCPKG_INSTALLATION_ROOT
-        # git pull origin master
-        # .\bootstrap-vcpkg.bat
-        vcpkg install python3:x64-windows-release
-        vcpkg install alembic[hdf5]:x64-windows-release pybind11:x64-windows-release
+        vcpkg install python3:x64-windows-release --binarysource="clear;x-gha,readwrite"
+        
+    - name: Update vcpkg and install packages
+      run: |
+        vcpkg install alembic[hdf5]:x64-windows-release pybind11:x64-windows-release --binarysource="clear;x-gha,readwrite"
       
     - name: vcpkg integration
       run: vcpkg integrate install
