@@ -79,7 +79,8 @@ jobs:
         # cd $env:VCPKG_INSTALLATION_ROOT
         # git pull origin master
         # .\bootstrap-vcpkg.bat
-        vcpkg install python3:x64-windows-release alembic[hdf5]:x64-windows-release pybind11:x64-windows-release
+        vcpkg install python3:x64-windows-release
+        vcpkg install alembic[hdf5]:x64-windows-release pybind11:x64-windows-release
       
     - name: vcpkg integration
       run: vcpkg integrate install
