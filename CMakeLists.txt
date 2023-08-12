@@ -13,6 +13,10 @@ SET(CMAKE_CXX_FLAGS_DEBUG
     /Z7
     )
 
+SET(CMAKE_INSTALL_PREFIX_RELEASE
+    ${CMAKE_INSTALL_PREFIX}-release
+    )
+    
 # path settings
 #FIND_PACKAGE(PythonLibs REQUIRED)
 SET(PYTHON_INCLUDE_DIRS
@@ -22,7 +26,7 @@ SET(PYTHON_LIBRARIES
 
 #FIND_PACKAGE(pybind11 REQUIRED)
 SET(pybind11_INCLUDE_DIRS
-    ${CMAKE_INSTALL_PREFIX}/include
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/include
     ${PYTHON_INCLUDE_DIRS}
     )
 GET_FILENAME_COMPONENT(MMD_DIR
@@ -31,17 +35,17 @@ GET_FILENAME_COMPONENT(MMD_DIR
     )
 #FIND_PACKAGE(ilmbase REQUIRED)
 SET(ilmbase_INCLUDE_DIRS 
-    ${CMAKE_INSTALL_PREFIX}/include/Imath)
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/include/Imath)
 #FIND_PACKAGE(Alembic REQUIRED)
 SET(ALEMBIC_INCLUDE_DIRS
-    ${CMAKE_INSTALL_PREFIX}/include)
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/include)
 SET(ALEMBIC_LIBRARIES
-    ${CMAKE_INSTALL_PREFIX}/lib/Alembic.lib
-    ${CMAKE_INSTALL_PREFIX}/lib/hdf5.lib
-    ${CMAKE_INSTALL_PREFIX}/lib/hdf5_hl.lib
-    ${CMAKE_INSTALL_PREFIX}/lib/Imath-3_1.lib
-    ${CMAKE_INSTALL_PREFIX}/lib/zlib.lib
-    ${CMAKE_INSTALL_PREFIX}/lib/szip.lib)
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/Alembic.lib
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/hdf5.lib
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/hdf5_hl.lib
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/Imath-3_1.lib
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/zlib.lib
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/lib/szip.lib)
 
 # projects
 ADD_SUBDIRECTORY(src)
@@ -49,12 +53,12 @@ ADD_SUBDIRECTORY(src)
 # additional install files
 INSTALL(FILES 
     ${CMAKE_INSTALL_PREFIX}/bin/python311.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/Alembic.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/hdf5.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/hdf5_hl.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/imath-3_1.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/zlib1.dll
-    ${CMAKE_INSTALL_PREFIX}/bin/szip.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/Alembic.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/hdf5.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/hdf5_hl.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/imath-3_1.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/zlib1.dll
+    ${CMAKE_INSTALL_PREFIX_RELEASE}/bin/szip.dll
     DESTINATION ${MMD_DIR}
     )
 FILE(GLOB python_sciprts Release/Win32/*.py
