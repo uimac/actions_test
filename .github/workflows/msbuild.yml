@@ -14,8 +14,6 @@ env:
  
   VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
   
-  cache-version: v1
-  
 jobs:
   build:
     runs-on: windows-2022
@@ -43,7 +41,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/cache
-        key: ${{env.cache-version}}-cache
+        key: v1-cache
 
     - name: DXSDK cache create
       if:    steps.cache.outputs.cache-hit != 'true'
@@ -81,7 +79,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/cache_mmd
-        key: ${{env.cache-version}}-cache_mmd
+        key: v2-cache_mmd
 
     - name: Copy MMD
       if:     steps.cache_mmd.outputs.cache-hit != 'true'
@@ -91,6 +89,7 @@ jobs:
          mv _MikuMikuDance_.zip $HOME/cache_mmd/
          7z x $HOME/cache_mmd/_MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
          mv _MikuMikuDance_/MikuMikuDance_v932x64/* $HOME/cache_mmd/
+         iconv -f SJIS -t UTF8 $HOME/cache_mmd/Data/MMDExport.h
          rm -fR _MikuMikuDance*_
       shell: bash
       
@@ -111,7 +110,7 @@ jobs:
       run: vcpkg integrate install
 
     - name: Checkout MMDBridge
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: cmake
       shell: cmd
