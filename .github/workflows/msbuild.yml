@@ -139,5 +139,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-          path: ~/MMDBridge_artifact_${GITHUB_RUN_NUMBER}.zip
+          path: ~/MMDBridge_artifact_${{github.run_number}}.zip
           
