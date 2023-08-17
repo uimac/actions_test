@@ -40,11 +40,11 @@ jobs:
       id:   cache
       uses: actions/cache@v3
       with:
-        path: $winhome/cache
+        path: ~/cache
         key:  cache
 
     - name: DXSDK cache create
-      if:   ${{ steps.cache.outputs.cache-hit != 'true' }}
+      if:    steps.cache.outputs.cache-hit != 'true'
       run:   |
          curl -L https://download.microsoft.com/download/a/e/7/ae743f1f-632b-4809-87a9-aa1bb3458e31/DXSDK_Jun10.exe -o _DX2010_.exe
          mv _DX2010_.exe $HOME/cache/
@@ -77,11 +77,11 @@ jobs:
       id:   cache_mmd
       uses: actions/cache@v3
       with:
-        path: $winhome/cache_mmd
+        path: ~/cache_mmd
         key:  cache_mmd
 
     - name: Copy MMD
-      if:    ${{ steps.cache_mmd.outputs.cache-hit != 'true' }}
+      if:     steps.cache_mmd.outputs.cache-hit != 'true'
       run:  |
          curl -L "https://drive.google.com/uc?id=1Iucxu0tDsD05Siyv8VBGgm9vjD-f-RhM&export=download" -o _MikuMikuDance_.zip
          mv _MikuMikuDance_.zip $HOME/cache_mmd/
