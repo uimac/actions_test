@@ -133,7 +133,7 @@ jobs:
     - name: Zip
       run: |
         rm -f ~\MMDBridge_artifact_*
-        7z a ~/MMDBridge_artifact_${GITHUB_RUN_NUMBER}.zip -r0 ~/cache_mmd/* -x!*_MikuMikuDance_.zip -xr!*cache_mmd/Data*
+        7z a ~/MMDBridge_artifact_${GITHUB_RUN_NUMBER}.zip -r0 ~/cache_mmd/* -x!*_MikuMikuDance_.zip -xr!*Data*
       shell: bash
       
     - name: Upload
