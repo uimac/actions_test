@@ -38,19 +38,20 @@ jobs:
       
     - name: DXSDK from cache
       id:   cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
-        path: ~/cache
+        path: $winhome/cache
         key:  cache
 
     - name: DXSDK cache create
-      if:    steps.cache.outputs.cache-hit != 'true'
+      if:   ${{ steps.cache.outputs.cache-hit != 'true' }}
       run:   |
          curl -L https://download.microsoft.com/download/a/e/7/ae743f1f-632b-4809-87a9-aa1bb3458e31/DXSDK_Jun10.exe -o _DX2010_.exe
-         7z x _DX2010_.exe DXSDK/Include -o_DX2010_
-         7z x _DX2010_.exe DXSDK/Lib/x64 -o_DX2010_
-         mv _DX2010_/DXSDK $HOME/cache
-         rm -fR _DX*_ _DX*_.exe
+         mv _DX2010_.exe $HOME/cache/
+         7z x $HOME/cache/_DX2010_.exe DXSDK/Include -o_DX2010_
+         7z x $HOME/cache/_DX2010_.exe DXSDK/Lib/x64 -o_DX2010_
+         mv _DX2010_/DXSDK/* $HOME/cache/
+         rm -fR _DX*_
       shell: bash
       
     - name: DXSDK comment out some codes
@@ -74,18 +75,19 @@ jobs:
       
     - name: MMD from cache_mmd
       id:   cache_mmd
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
-        path: ~/cache_mmd
+        path: $winhome/cache_mmd
         key:  cache_mmd
 
     - name: Copy MMD
-      if:    steps.cache.outputs.cache-hit != 'true'
+      if:    ${{ steps.cache_mmd.outputs.cache-hit != 'true' }}
       run:  |
          curl -L "https://drive.google.com/uc?id=1Iucxu0tDsD05Siyv8VBGgm9vjD-f-RhM&export=download" -o _MikuMikuDance_.zip
-         7z x _MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
-         mv _MikuMikuDance_/MikuMikuDance_v932x64 $HOME/cache
-         rm -fR _MikuMikuDance*_ _MikuMikuDance*_.zip
+         mv _MikuMikuDance_.zip $HOME/cache_mmd/
+         7z x $HOME/cache_mmd/_MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
+         mv _MikuMikuDance_/MikuMikuDance_v932x64 $HOME/cache_mmd
+         rm -fR _MikuMikuDance*_
       shell: bash
       
     - uses: actions/github-script@v6
@@ -94,14 +96,10 @@ jobs:
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
       
-    - name: Install dependencies via vcpkg
+    - name: Install python3 via vcpkg
       run: vcpkg install python3:x64-windows-release --binarysource="clear;x-gha,readwrite"
 
-    - name: Update vcpkg and install python
-      run: |
-        vcpkg install python3:x64-windows-release --binarysource="clear;x-gha,readwrite"
-        
-    - name: Update vcpkg and install packages
+    - name: Install alembic, pybind11 via vcpkg
       run: |
         vcpkg install alembic[hdf5]:x64-windows-release pybind11:x64-windows-release --binarysource="clear;x-gha,readwrite"
       
