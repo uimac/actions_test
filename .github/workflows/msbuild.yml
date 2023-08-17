@@ -14,6 +14,8 @@ env:
  
   VCPKG_INSTALL_PATH: "$env:VCPKG_INSTALLATION_ROOT/installed"
   
+  cache-version: v1
+  
 jobs:
   build:
     runs-on: windows-2022
@@ -41,7 +43,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/cache
-        key:  cache
+        key: ${{env.cache-version}}-cache
 
     - name: DXSDK cache create
       if:    steps.cache.outputs.cache-hit != 'true'
@@ -79,7 +81,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/cache_mmd
-        key:  cache_mmd
+        key: ${{env.cache-version}}-cache_mmd
 
     - name: Copy MMD
       if:     steps.cache_mmd.outputs.cache-hit != 'true'
@@ -88,7 +90,7 @@ jobs:
          mkdir $HOME/cache_mmd
          mv _MikuMikuDance_.zip $HOME/cache_mmd/
          7z x $HOME/cache_mmd/_MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
-         mv _MikuMikuDance_/MikuMikuDance_v932x64 $HOME/cache_mmd
+         mv _MikuMikuDance_/MikuMikuDance_v932x64/* $HOME/cache_mmd/
          rm -fR _MikuMikuDance*_
       shell: bash
       
