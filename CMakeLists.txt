@@ -29,10 +29,18 @@ SET(pybind11_INCLUDE_DIRS
     ${CMAKE_INSTALL_PREFIX}/include
     ${PYTHON_INCLUDE_DIRS}
     )
-GET_FILENAME_COMPONENT(MMD_DIR
-    ${CMAKE_CURRENT_LIST_DIR}/MikuMikuDance_x64
-    ABSOLUTE
-    )
+
+if(DEFINED ENV{MMD_DIR})
+    SET(MMD_DIR
+        $ENV{MMD_DIR}
+        )
+else()
+    GET_FILENAME_COMPONENT(MMD_DIR
+        ${CMAKE_CURRENT_LIST_DIR}/MikuMikuDance_x64
+        ABSOLUTE
+        )
+endif()
+
 #FIND_PACKAGE(ilmbase REQUIRED)
 SET(ilmbase_INCLUDE_DIRS 
     ${CMAKE_INSTALL_PREFIX}/include/Imath)
