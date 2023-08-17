@@ -47,6 +47,7 @@ jobs:
       if:    steps.cache.outputs.cache-hit != 'true'
       run:   |
          curl -L https://download.microsoft.com/download/a/e/7/ae743f1f-632b-4809-87a9-aa1bb3458e31/DXSDK_Jun10.exe -o _DX2010_.exe
+         mkdir $HOME/cache
          mv _DX2010_.exe $HOME/cache/
          7z x $HOME/cache/_DX2010_.exe DXSDK/Include -o_DX2010_
          7z x $HOME/cache/_DX2010_.exe DXSDK/Lib/x64 -o_DX2010_
@@ -84,6 +85,7 @@ jobs:
       if:     steps.cache_mmd.outputs.cache-hit != 'true'
       run:  |
          curl -L "https://drive.google.com/uc?id=1Iucxu0tDsD05Siyv8VBGgm9vjD-f-RhM&export=download" -o _MikuMikuDance_.zip
+         mkdir $HOME/cache_mmd
          mv _MikuMikuDance_.zip $HOME/cache_mmd/
          7z x $HOME/cache_mmd/_MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
          mv _MikuMikuDance_/MikuMikuDance_v932x64 $HOME/cache_mmd
