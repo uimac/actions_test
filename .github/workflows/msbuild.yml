@@ -132,7 +132,6 @@ jobs:
 
     - name: Zip
       run: zip -r MMDBridge_artifact_${{env.GITHUB_RUN_NUMBER}}.zip ~/cache_mmd/ -x "_MikuMikuDance_.zip" -x "cache_mmd/Data"
-      shell: bash
       
     - name: Upload
       uses: actions/upload-artifact@v3
