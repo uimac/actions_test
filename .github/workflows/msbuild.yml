@@ -82,7 +82,7 @@ jobs:
     - name: Copy MMD
       if:    steps.cache.outputs.cache-hit != 'true'
       run:  |
-         curl -L https://drive.google.com/uc?id=1Iucxu0tDsD05Siyv8VBGgm9vjD-f-RhM&export=download -o _MikuMikuDance_.zip
+         curl -L "https://drive.google.com/uc?id=1Iucxu0tDsD05Siyv8VBGgm9vjD-f-RhM&export=download" -o _MikuMikuDance_.zip
          7z x _MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
          mv _MikuMikuDance_/MikuMikuDance_v932x64 $HOME/cache
          rm -fR _MikuMikuDance*_ _MikuMikuDance*_.zip
