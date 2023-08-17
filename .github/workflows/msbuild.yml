@@ -131,7 +131,8 @@ jobs:
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BULID_PLATFORM}} ${{env.INSTALL_PROJECT_PATH}}
 
     - name: Zip
-      run: zip -r MMDBridge_artifact_${{env.GITHUB_RUN_NUMBER}}.zip ~/cache_mmd/ -x "_MikuMikuDance_.zip" -x "cache_mmd/Data"
+      run: 7z a -r MMDBridge_artifact_${{env.GITHUB_RUN_NUMBER}}.zip ~/cache_mmd/ -x!*_MikuMikuDance_.zip -xr!*cache_mmd/Data
+      shell: bash
       
     - name: Upload
       uses: actions/upload-artifact@v3
