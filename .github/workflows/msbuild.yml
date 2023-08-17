@@ -89,7 +89,8 @@ jobs:
          mv _MikuMikuDance_.zip $HOME/cache_mmd/
          7z x $HOME/cache_mmd/_MikuMikuDance_.zip MikuMikuDance_v932x64/Data -o_MikuMikuDance_
          mv _MikuMikuDance_/MikuMikuDance_v932x64/* $HOME/cache_mmd/
-         iconv -f SJIS -t UTF8 $HOME/cache_mmd/Data/MMDExport.h
+         nkf -w --overwrite $HOME/cache_mmd/Data/MMDExport.h
+         nkf -g $HOME/cache_mmd/Data/MMDExport.h
          rm -fR _MikuMikuDance*_
       shell: bash
       
