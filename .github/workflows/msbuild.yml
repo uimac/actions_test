@@ -5,6 +5,7 @@ on: [push]
 env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: ./build_vs2022_64/mmdbridge.sln
+  INSTALL_PROJECT_PATH: ./build_vs2022_64/INSTALL.vcxproj
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
@@ -124,8 +125,10 @@ jobs:
       run: |
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BULID_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}
 
-    - name: cmake install
-      run: cmake --build . --target install --config ${{env.BUILD_CONFIGURATION}}
+    - name: Install
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BULID_PLATFORM}} ${{env.INSTALL_PROJECT_PATH}}
       
     - name: Upload
       uses: actions/upload-artifact@v3
